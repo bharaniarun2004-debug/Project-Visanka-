@@ -1,0 +1,470 @@
+# Complete Installation Guide
+## Appointment Booking Application
+
+---
+
+## Prerequisites
+
+Before starting, ensure you have:
+
+1. **XAMPP** (v7.4 or higher)
+   - Download from: https://www.apachefriends.org/
+   
+2. **Flutter SDK** (latest stable)
+   - Download from: https://flutter.dev/docs/get-started/install
+   
+3. **Android Studio** (latest version)
+   - Download from: https://developer.android.com/studio
+   
+4. **Git** (for cloning repository)
+   - Download from: https://git-scm.com/
+
+---
+
+## Part 1: Database Setup (5 minutes)
+
+### Step 1: Start XAMPP
+
+1. Open XAMPP Control Panel
+2. Click **Start** for Apache
+3. Click **Start** for MySQL
+4. Both should show green "Running" status
+
+### Step 2: Create Database
+
+1. Open browser and go to: `http://localhost/phpmyadmin`
+2. Click **"New"** in left sidebar
+3. Database name: `appointment_booking`
+4. Collation: `utf8mb4_unicode_ci`
+5. Click **"Create"**
+
+### Step 3: Import Schema
+
+1. Click on `appointment_booking` database
+2. Click **"Import"** tab
+3. Click **"Choose File"**
+4. Select `database_schema.sql`
+5. Click **"Go"** at bottom
+6. Wait for "Import has been successfully finished" message
+
+### Step 4: Verify Installation
+
+1. Click on `appointment_booking` database
+2. You should see 3 tables:
+   - users
+   - providers
+   - appointments
+3. Click on **"providers"** table
+4. Click **"Browse"**
+5. You should see 5 sample providers
+
+✅ **Database setup complete!**
+
+---
+
+## Part 2: Backend Setup (10 minutes)
+
+### Step 1: Locate XAMPP htdocs
+
+Default locations:
+- **Windows**: `C:\xampp\htdocs\`
+- **Mac**: `/Applications/XAMPP/htdocs/`
+- **Linux**: `/opt/lampp/htdocs/`
+
+### Step 2: Create Project Directory
+
+1. Navigate to htdocs folder
+2. Create new folder: `online-appointment-booking-final`
+3. Inside it, create folder: `backend`
+
+Your path should be:
+```
+C:\xampp\htdocs\online-appointment-booking-final\backend\
+```
+
+### Step 3: Copy Backend Files
+
+Copy the following structure to `backend` folder:
+
+```
+backend/
+├── auth/
+│   └── google_login.php
+├── api/
+│   ├── providers.php
+│   ├── appointments.php
+│   ├── my_appointments.php
+│   ├── provider_requests.php
+│   └── update_status.php
+├── middleware/
+│   └── auth.php
+├── config/
+│   └── db.php
+└── utils/
+    └── response.php
+```
+
+### Step 4: Configure Database Connection
+
+1. Open `backend/config/db.php`
+2. Verify these settings:
+
+```php
+private $host = "localhost";
+private $db_name = "appointment_booking";
+private $username = "root";
+private $password = "";
+```
+
+3. If your MySQL has a password, update the `$password` field
+4. Save the file
+
+### Step 5: Test Backend
+
+1. Open browser
+2. Go to: `http://localhost/online-appointment-booking-final/backend/api/providers.php`
+3. You should see:
+   ```json
+   {
+     "success": false,
+     "message": "No token provided"
+   }
+   ```
+
+✅ **This error is EXPECTED - it means backend is working!**
+
+---
+
+## Part 3: Flutter Setup (15 minutes)
+
+### Step 1: Install Flutter SDK
+
+1. Download Flutter SDK from flutter.dev
+2. Extract to a location (e.g., `C:\flutter` or `~/flutter`)
+3. Add Flutter to PATH:
+
+**Windows:**
+- Search for "Environment Variables"
+- Edit PATH
+- Add: `C:\flutter\bin`
+
+**Mac/Linux:**
+```bash
+echo 'export PATH="$PATH:$HOME/flutter/bin"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+4. Verify installation:
+```bash
+flutter --version
+```
+
+### Step 2: Install Android Studio
+
+1. Download and install Android Studio
+2. During installation, ensure these are checked:
+   - Android SDK
+   - Android SDK Platform
+   - Android Virtual Device
+
+3. Open Android Studio
+4. Go to: Tools → SDK Manager
+5. Install:
+   - Android SDK (API 21 or higher)
+   - Android SDK Build-Tools
+   - Android Emulator
+
+### Step 3: Create Android Virtual Device (AVD)
+
+1. In Android Studio: Tools → Device Manager
+2. Click **"Create Device"**
+3. Select: **Pixel 5** (or any phone)
+4. Click **"Next"**
+5. Select: **R (API 30)** or higher
+6. Click **"Next"**, then **"Finish"**
+
+### Step 4: Accept Android Licenses
+
+Open terminal/command prompt:
+```bash
+flutter doctor --android-licenses
+```
+Type `y` to accept all licenses
+
+### Step 5: Run Flutter Doctor
+
+```bash
+flutter doctor
+```
+
+You should see checkmarks ✓ for:
+- Flutter
+- Android toolchain
+- Android Studio
+
+### Step 6: Setup Flutter Project
+
+1. Extract the Flutter project folder
+2. Open terminal in project directory
+3. Run:
+
+```bash
+cd appointment_booking_app
+flutter pub get
+```
+
+Wait for dependencies to download (this may take 2-5 minutes)
+
+✅ **Flutter setup complete!**
+
+---
+
+## Part 4: Google Sign-In Configuration (Optional - 10 minutes)
+
+### For Testing/Development:
+The app will work with Google Sign-In using debug keys. No additional setup needed.
+
+### For Production:
+
+1. Go to: https://console.cloud.google.com/
+2. Create new project or select existing
+3. Enable APIs:
+   - Google Sign-In API
+   - Google+ API
+
+4. Create credentials:
+   - Go to: APIs & Services → Credentials
+   - Click **"Create Credentials"** → **"OAuth client ID"**
+   - Application type: **Android**
+   - Package name: `com.example.appointment_booking_app`
+
+5. Get SHA-1 certificate:
+
+**Windows:**
+```cmd
+keytool -list -v -keystore "%USERPROFILE%\.android\debug.keystore" -alias androiddebugkey -storepass android -keypass android
+```
+
+**Mac/Linux:**
+```bash
+keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
+```
+
+6. Copy the SHA-1 fingerprint
+7. Paste in Google Cloud Console
+8. Click **"Create"**
+
+---
+
+## Part 5: Running the Application (5 minutes)
+
+### Step 1: Verify Everything is Running
+
+Check:
+- ✅ XAMPP Apache: Running
+- ✅ XAMPP MySQL: Running
+- ✅ Android Emulator: Ready (or physical device connected)
+
+### Step 2: Start Android Emulator
+
+**Option A - From Android Studio:**
+1. Open Android Studio
+2. Tools → Device Manager
+3. Click ▶️ Play button next to your AVD
+
+**Option B - From Command Line:**
+```bash
+flutter emulators
+flutter emulators --launch <emulator-id>
+```
+
+### Step 3: Verify Device Connection
+
+```bash
+flutter devices
+```
+
+You should see your emulator/device listed
+
+### Step 4: Run the Application
+
+```bash
+cd appointment_booking_app
+flutter run
+```
+
+Wait for build to complete (first time may take 5-10 minutes)
+
+### Step 5: Test the Application
+
+1. App should open on emulator showing **Splash Screen**
+2. After 2 seconds → **Role Selection Screen**
+3. Click **"Login as User"**
+4. Click **"Login with Google"**
+5. Select a Google account
+6. You should see **User Dashboard** with providers
+
+---
+
+## Testing Checklist
+
+### User Flow Test:
+
+1. ✅ Login as User with Google
+2. ✅ See list of 5 providers
+3. ✅ Click on a provider
+4. ✅ Select date (tomorrow or later)
+5. ✅ Select time
+6. ✅ Enter reason: "Test appointment"
+7. ✅ Click "Book Appointment"
+8. ✅ See success message
+9. ✅ Click "My Appointments" button
+10. ✅ See your appointment with status "PENDING"
+
+### Provider Flow Test:
+
+1. ✅ Go back and select "Login as Provider"
+2. ✅ Login with different Google account
+3. ✅ See appointment request
+4. ✅ Click "Accept"
+5. ✅ See meeting ID generated
+6. ✅ Status changes to "ACCEPTED"
+
+### User Verification:
+
+1. ✅ Login back as User
+2. ✅ Check "My Appointments"
+3. ✅ Status should be "ACCEPTED"
+4. ✅ Meeting ID should be visible
+
+---
+
+## Troubleshooting
+
+### Issue: "Connection refused" error
+
+**Solution:**
+1. Check XAMPP Apache is running
+2. Verify URL in `lib/utils/constants.dart`:
+   ```dart
+   static const String baseUrl = 'http://10.0.2.2/online-appointment-booking-final/backend';
+   ```
+3. Make sure backend folder is in correct location
+
+### Issue: "Database connection error"
+
+**Solution:**
+1. Check MySQL is running in XAMPP
+2. Verify database name is `appointment_booking`
+3. Check credentials in `backend/config/db.php`
+4. Try restarting MySQL
+
+### Issue: "Failed to load providers"
+
+**Solution:**
+1. Test backend URL in browser:
+   ```
+   http://localhost/online-appointment-booking-final/backend/api/providers.php
+   ```
+2. Should return authentication error (this is correct)
+3. Check Apache error logs in XAMPP
+
+### Issue: Google Sign-In not working
+
+**Solution:**
+1. Make sure Google Play Services is installed on emulator
+2. Check internet connection
+3. Use a real Google account (not @test.com)
+4. Try with different Google account
+
+### Issue: Emulator is very slow
+
+**Solution:**
+1. Enable hardware acceleration in BIOS
+2. In Android Studio: Tools → AVD Manager → Edit → Show Advanced Settings
+3. Increase RAM to 2048 MB or higher
+4. Enable "Graphics: Hardware"
+
+### Issue: Build errors in Flutter
+
+**Solution:**
+```bash
+flutter clean
+flutter pub get
+flutter run
+```
+
+### Issue: "Gradle build failed"
+
+**Solution:**
+1. Update Android SDK Build-Tools
+2. Check internet connection (Gradle downloads dependencies)
+3. Delete `.gradle` folder and rebuild
+
+---
+
+## Quick Reference
+
+### Important URLs:
+
+- phpMyAdmin: `http://localhost/phpmyadmin`
+- Backend API: `http://localhost/online-appointment-booking-final/backend`
+- Test Endpoint: `http://localhost/online-appointment-booking-final/backend/api/providers.php`
+
+### Important Commands:
+
+```bash
+# Flutter commands
+flutter doctor
+flutter pub get
+flutter run
+flutter clean
+flutter devices
+flutter emulators
+
+# Git commands (if using Git)
+git clone <repository-url>
+git pull
+```
+
+### File Locations:
+
+- **Backend**: `C:\xampp\htdocs\online-appointment-booking-final\backend`
+- **Database**: phpMyAdmin → appointment_booking
+- **Flutter**: `appointment_booking_app` folder
+- **Logs**: XAMPP → Logs folder
+
+---
+
+## Next Steps After Installation
+
+1. **Test all features** using the testing checklist
+2. **Customize providers** by adding your own in database
+3. **Configure email** notifications (optional)
+4. **Update branding** (app name, logo, colors)
+5. **Deploy to device** for real-world testing
+
+---
+
+## Support Resources
+
+- Flutter Documentation: https://flutter.dev/docs
+- PHP Documentation: https://www.php.net/docs.php
+- MySQL Documentation: https://dev.mysql.com/doc/
+- XAMPP Forum: https://community.apachefriends.org/
+
+---
+
+## Estimated Total Time
+
+- Database Setup: **5 minutes**
+- Backend Setup: **10 minutes**
+- Flutter Setup: **15 minutes**
+- Google Configuration: **10 minutes** (optional)
+- Running & Testing: **5 minutes**
+
+**Total: ~45 minutes** (first time installation)
+
+---
+
+**Installation complete! Your appointment booking application is now ready to use.**
