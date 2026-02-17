@@ -1,0 +1,435 @@
+# ============================================
+# APPOINTMENT BOOKING APPLICATION
+# Complete Requirements & Dependencies
+# ============================================
+
+# ============================================
+# 1. SYSTEM REQUIREMENTS
+# ============================================
+
+## Operating System
+- Windows 10/11 (64-bit)
+- macOS 10.14 or later
+- Linux (Ubuntu 18.04 or later)
+
+## Hardware
+- Processor: Intel Core i5 or equivalent
+- RAM: 4GB minimum, 8GB recommended
+- Storage: 10GB free disk space
+- Internet connection (for dependencies and Google Sign-In)
+
+# ============================================
+# 2. SOFTWARE REQUIREMENTS
+# ============================================
+
+## Backend (PHP)
+- XAMPP 7.4.0 or higher
+  - Apache 2.4+
+  - MySQL 5.7+ or MariaDB 10.4+
+  - PHP 7.4+ or PHP 8.0+
+- phpMyAdmin (included with XAMPP)
+
+## Frontend (Flutter)
+- Flutter SDK 3.16.0 or later (latest stable)
+- Dart SDK 3.2.0 or later (comes with Flutter)
+
+## Development Tools
+- Android Studio 2023.1.1 or later
+  - Android SDK API Level 21 (Android 5.0) minimum
+  - Android SDK API Level 34 recommended
+  - Android SDK Build-Tools 34.0.0
+  - Android Emulator
+- Visual Studio Code (optional, for Flutter development)
+- Git 2.30+ (optional, for version control)
+
+## Mobile Testing
+- Android Emulator (via Android Studio)
+  OR
+- Physical Android device (Android 5.0+) with USB debugging
+
+# ============================================
+# 3. PHP EXTENSIONS (Required)
+# ============================================
+
+# These are included in XAMPP by default
+php-pdo
+php-pdo_mysql
+php-json
+php-mbstring
+php-openssl
+php-curl
+
+# ============================================
+# 4. FLUTTER DEPENDENCIES
+# ============================================
+
+# File: pubspec.yaml
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # UI Components
+  cupertino_icons: ^1.0.2
+  
+  # HTTP Client for API calls
+  http: ^1.1.0
+  
+  # Local Storage
+  shared_preferences: ^2.2.2
+  
+  # Google Authentication
+  google_sign_in: ^6.1.5
+  
+  # Date Formatting
+  intl: ^0.18.1
+  
+  # SVG Support (optional)
+  flutter_svg: ^2.0.9
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+# ============================================
+# 5. MYSQL/DATABASE REQUIREMENTS
+# ============================================
+
+## Database Engine
+- MySQL 5.7+ or MariaDB 10.4+
+- InnoDB storage engine (default)
+- UTF-8 (utf8mb4) character set support
+
+## Database Settings
+- max_connections: 150 (default)
+- innodb_buffer_pool_size: 128M minimum
+- query_cache_size: 16M recommended
+
+# ============================================
+# 6. NETWORK REQUIREMENTS
+# ============================================
+
+## Ports (Must be available)
+- 80 (Apache HTTP)
+- 443 (Apache HTTPS) - optional
+- 3306 (MySQL)
+
+## Internet Access Required For:
+- Flutter pub get (download dependencies)
+- Google Sign-In OAuth
+- Android SDK updates
+- Gradle dependencies
+
+## Local Network Configuration
+- Android Emulator uses 10.0.2.2 for localhost
+- Physical device uses computer's IP address
+
+# ============================================
+# 7. ANDROID SDK REQUIREMENTS
+# ============================================
+
+## SDK Tools
+- Android SDK Platform-Tools 34.0.0+
+- Android SDK Build-Tools 34.0.0+
+- Android SDK Command-line Tools (latest)
+
+## SDK Platforms
+- Android 5.0 (API 21) - Minimum
+- Android 14 (API 34) - Target/Recommended
+
+## Emulator Requirements
+- Android Emulator 33.1.0+
+- System Image: Google APIs (x86_64 or ARM64)
+- RAM: 2048MB minimum for emulator
+
+# ============================================
+# 8. GRADLE REQUIREMENTS
+# ============================================
+
+## Gradle Version
+- Gradle 8.1.0 or higher (auto-downloaded by Flutter)
+
+## Gradle Dependencies (auto-managed)
+- Android Gradle Plugin 8.1.0
+- Kotlin Gradle Plugin 1.9.10
+
+# ============================================
+# 9. GOOGLE CLOUD REQUIREMENTS
+# ============================================
+
+## For Production Google Sign-In
+- Google Cloud Console account
+- OAuth 2.0 Client ID (Android)
+- SHA-1 certificate fingerprint
+- Package name: com.example.appointment_booking_app
+
+## Note: Development works with debug keys automatically
+
+# ============================================
+# 10. OPTIONAL REQUIREMENTS
+# ============================================
+
+## Email Functionality (Optional)
+- SMTP server configuration
+- Mail server (for PHP mail() function)
+- Recommended: PHPMailer library
+
+## Version Control (Optional)
+- Git 2.30+
+- GitHub/GitLab account
+
+## Code Editor Plugins (Optional)
+- Flutter/Dart plugins for VS Code or Android Studio
+- PHP IntelliSense
+- MySQL syntax highlighting
+
+# ============================================
+# 11. INSTALLATION COMMANDS
+# ============================================
+
+## Flutter Setup
+# Install Flutter SDK
+flutter --version
+flutter doctor
+flutter doctor --android-licenses
+
+## Flutter Dependencies
+cd appointment_booking_app
+flutter pub get
+flutter pub upgrade
+
+## Verify Installation
+flutter devices
+flutter doctor -v
+
+## Build/Run
+flutter run
+flutter build apk --release
+
+## Clean Build (if needed)
+flutter clean
+flutter pub get
+
+# ============================================
+# 12. XAMPP/PHP SETUP
+# ============================================
+
+## Start Services
+# Open XAMPP Control Panel
+# Start Apache
+# Start MySQL
+
+## Verify PHP Installation
+php -v
+php -m | grep pdo
+php -m | grep mysqli
+
+## Test Apache
+# Open browser: http://localhost
+# Should see XAMPP dashboard
+
+## Test phpMyAdmin
+# Open browser: http://localhost/phpmyadmin
+# Should see database management interface
+
+# ============================================
+# 13. DATABASE SETUP REQUIREMENTS
+# ============================================
+
+## Database Configuration
+Database Name: appointment_booking
+Character Set: utf8mb4
+Collation: utf8mb4_unicode_ci
+Storage Engine: InnoDB
+
+## User Permissions Required
+- CREATE DATABASE
+- CREATE TABLE
+- INSERT, UPDATE, DELETE
+- SELECT
+- ALTER, DROP (for migrations)
+
+# ============================================
+# 14. MINIMUM SPECIFICATIONS SUMMARY
+# ============================================
+
+## Backend Environment
+✓ PHP 7.4+
+✓ MySQL 5.7+
+✓ Apache 2.4+
+✓ PDO Extension
+✓ JSON Extension
+
+## Frontend Environment
+✓ Flutter SDK 3.16.0+
+✓ Android SDK API 21+
+✓ Dart SDK 3.2.0+
+✓ 4GB RAM
+✓ Android Emulator or Device
+
+## Development Tools
+✓ XAMPP 7.4+
+✓ Android Studio
+✓ 10GB Disk Space
+✓ Internet Connection
+
+# ============================================
+# 15. VERIFICATION CHECKLIST
+# ============================================
+
+## Before Starting Installation
+[ ] XAMPP installed and services running
+[ ] Flutter SDK installed and in PATH
+[ ] Android Studio installed
+[ ] Android emulator created
+[ ] Internet connection active
+[ ] Sufficient disk space (10GB+)
+
+## Backend Verification
+[ ] Apache running on port 80
+[ ] MySQL running on port 3306
+[ ] phpMyAdmin accessible
+[ ] PHP version 7.4+
+[ ] PDO extension enabled
+
+## Frontend Verification
+[ ] flutter doctor shows all checkmarks
+[ ] Android SDK installed
+[ ] Android emulator/device connected
+[ ] flutter devices shows device
+[ ] Java/Kotlin configured
+
+# ============================================
+# 16. COMMON DEPENDENCY ISSUES & SOLUTIONS
+# ============================================
+
+## Issue: Flutter not found
+Solution: Add Flutter to system PATH
+- Windows: Environment Variables → PATH → Add flutter\bin
+- Mac/Linux: Add to ~/.bashrc or ~/.zshrc
+
+## Issue: Android licenses not accepted
+Solution: flutter doctor --android-licenses
+Accept all licenses
+
+## Issue: PHP PDO not enabled
+Solution: Edit php.ini
+Uncomment: extension=pdo_mysql
+
+## Issue: MySQL won't start
+Solution: Check port 3306 not in use
+Change port in XAMPP config if needed
+
+## Issue: Gradle build fails
+Solution: 
+- Check internet connection
+- Clear gradle cache
+- Update Android SDK
+
+# ============================================
+# 17. PRODUCTION DEPLOYMENT REQUIREMENTS
+# ============================================
+
+## Additional Production Requirements
+- SSL Certificate (HTTPS)
+- Production database server
+- Real SMTP server for emails
+- Production Google OAuth credentials
+- Release signing key for Android
+- Reverse proxy (nginx/Apache)
+- Server monitoring tools
+- Backup solution
+- CDN (optional)
+
+## Security Requirements
+- Firewall configuration
+- Database user permissions (restricted)
+- API rate limiting
+- Input validation
+- HTTPS enforcement
+- Secure token storage
+- Regular security updates
+
+# ============================================
+# 18. PERFORMANCE REQUIREMENTS
+# ============================================
+
+## Recommended Server Specs (Production)
+- CPU: 2+ cores
+- RAM: 8GB+
+- Storage: SSD with 50GB+
+- Bandwidth: 10Mbps+
+
+## Database Performance
+- Connection pooling enabled
+- Query optimization
+- Proper indexing (included in schema)
+- Regular database maintenance
+
+## Mobile App Performance
+- App size: ~15-20MB (release)
+- Startup time: < 2 seconds
+- API response: < 1 second
+- Smooth animations (60fps)
+
+# ============================================
+# 19. COMPATIBILITY MATRIX
+# ============================================
+
+## Tested Configurations
+
+### Configuration 1 (Recommended)
+- Windows 11
+- XAMPP 8.2.4
+- PHP 8.2
+- MySQL 8.0
+- Flutter 3.16.0
+- Android SDK 34
+
+### Configuration 2 (Minimum)
+- Windows 10
+- XAMPP 7.4.0
+- PHP 7.4
+- MySQL 5.7
+- Flutter 3.16.0
+- Android SDK 21
+
+### Configuration 3 (Mac)
+- macOS Monterey
+- MAMP Pro or XAMPP
+- PHP 8.0+
+- MySQL 8.0
+- Flutter 3.16.0+
+- Xcode 14+ (for iOS - optional)
+
+# ============================================
+# 20. SUPPORT & DOCUMENTATION
+# ============================================
+
+## Official Documentation
+- Flutter: https://flutter.dev/docs
+- PHP: https://www.php.net/docs.php
+- MySQL: https://dev.mysql.com/doc/
+- Android: https://developer.android.com/docs
+
+## Package Documentation
+- http: https://pub.dev/packages/http
+- shared_preferences: https://pub.dev/packages/shared_preferences
+- google_sign_in: https://pub.dev/packages/google_sign_in
+- intl: https://pub.dev/packages/intl
+
+## Community Resources
+- Flutter Community: https://flutter.dev/community
+- Stack Overflow: Tag [flutter], [php], [mysql]
+- GitHub Issues: For specific packages
+
+# ============================================
+# END OF REQUIREMENTS
+# ============================================
+
+# Installation Time Estimate: 30-45 minutes
+# Skill Level Required: Intermediate
+# Project Status: Production Ready
+# Last Updated: February 2026
+# Version: 1.0.0
